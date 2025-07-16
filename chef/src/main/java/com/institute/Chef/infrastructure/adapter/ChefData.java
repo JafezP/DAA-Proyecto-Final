@@ -1,0 +1,42 @@
+package com.institute.Chef.infrastructure.adapter;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "chef")
+public class ChefData {
+    @Id
+    @Column(name = "uid", length = 40)
+    private String uid;
+
+    @Column(name = "document_number", length = 15)
+    private String documentNumber;
+
+    @Column(name = "name", length = 60)
+    private String name;
+
+    @Column(name = "last_name", length = 60)
+    private String lastName;
+
+    @Column(name = "phone", length = 15)
+    private String phone;
+
+    @Column(name = "email", length = 100)
+    private String email;
+
+    @Column(name = "active")
+    private int active;
+
+
+}
