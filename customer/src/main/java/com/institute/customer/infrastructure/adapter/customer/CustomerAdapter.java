@@ -3,14 +3,13 @@ package com.institute.customer.infrastructure.adapter.customer;
 import com.institute.customer.domain.model.Customer;
 import com.institute.customer.domain.model.CustomerRepository;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CustomerAdapter implements CustomerRepository {
 
     private CustomerDataRepository customerDataRepository;
@@ -25,24 +24,11 @@ public class CustomerAdapter implements CustomerRepository {
     }
 
     @Override
-    /* public Optional<Customer> findById(String uid) */
     public Customer findById(String uid) {
-        /* Consultar sobre optional */
         return customerDataRepository.findById(uid)
                 .filter(customerData -> customerData.getActive() == 1)
                 .map(CustomerMapper.MAPPER::toModel)
                 .orElseThrow(() -> new EntityNotFoundException("Customer not found or inactive: " + uid));
-
-        /* Customer customer = null;
-
-        Optional<CustomerData> customerData = customerDataRepository.findById(uid);
-        if (customerData.isPresent()) {
-            CustomerData cd = customerData.get();
-            if (cd.getActive() == 1) {
-                return CustomerMapper.MAPPER.toModel(customerData.get());
-            }
-        }
-        return customer;*/
     }
 
     @Override
@@ -53,33 +39,16 @@ public class CustomerAdapter implements CustomerRepository {
 
     @Override
     public Customer update(String uid, Customer customer) {
-
-        /* Optional<CustomerData> customerData = customerDataRepository.findById(uid);
-        if (customerData.isPresent()) {
-            CustomerData customerData1 = CustomerMapper.MAPPER.toEntity(customer);
-            return CustomerMapper.MAPPER.toModel(customerDataRepository.save(customerData1));
-        }
-
-        return null;*/
-
         CustomerData existing = customerDataRepository.findById(uid).
                 orElseThrow(() -> new EntityNotFoundException("Customer not found: " + uid));
 
         CustomerData update = CustomerMapper.MAPPER.toEntity(customer);
-        update.setUid(uid);
+        update.setUid(existing.getUid());
         return CustomerMapper.MAPPER.toModel(customerDataRepository.save(update));
     }
 
     @Override
     public void deleteById(String uid) {
-
-        /*Optional<CustomerData> customer = customerDataRepository.findById(uid);
-        if (customer.isPresent()) {
-            CustomerData customerData = customer.get();
-            customerData.setActive(0);
-            customerDataRepository.save(customerData);
-        }*/
-
         customerDataRepository.findById(uid)
                 .filter(c -> c.getActive() == 1)
                 .ifPresent(customerData -> {

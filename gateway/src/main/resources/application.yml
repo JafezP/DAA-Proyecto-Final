@@ -1,0 +1,18 @@
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: customer
+              uri: lb://customer
+              predicates:
+                - Path=/api/v1/institute/customer/**
+            - id: chef
+              uri: lb://chef
+              predicates:
+                - Path=/api/v1/institute/chef/**
+            - id: order
+              uri: lb://order
+              predicates:
+                - Path=/api/v1/institute/order/**

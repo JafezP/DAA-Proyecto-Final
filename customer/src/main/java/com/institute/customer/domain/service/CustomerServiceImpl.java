@@ -3,15 +3,16 @@ package com.institute.customer.domain.service;
 import com.institute.customer.domain.model.Customer;
 import com.institute.customer.domain.model.CustomerRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService{
 
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
     @Override
     public List<Customer> findAll() {
