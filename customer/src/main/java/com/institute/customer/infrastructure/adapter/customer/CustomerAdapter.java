@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerAdapter implements CustomerRepository {
 
-    private CustomerDataRepository customerDataRepository;
+    private final CustomerDataRepository customerDataRepository;
 
     @Override
     public List<Customer> findAll() {

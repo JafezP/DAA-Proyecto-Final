@@ -14,8 +14,8 @@ public class CustomerAdapter implements CustomerRepository {
 
     @Override
     public Customer findById(String uid) {
-        String url = "http://localhost:8081/api/v1/instituto/customer/" + uid;
-        CustomerData studentData = restTemplate.getForObject(url, CustomerData.class);
-        return CustomerMapper.MAPPER.toDomain(studentData);
+        String url = "http://localhost:8081/api/v1/institute/customer/" + uid;
+        CustomerData customerData = restTemplate.getForObject(url, CustomerData.class);
+        return CustomerMapper.MAPPER.toDomain(customerData);
     }
 }

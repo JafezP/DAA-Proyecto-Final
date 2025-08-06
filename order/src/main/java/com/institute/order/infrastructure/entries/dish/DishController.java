@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/institute/order/dish/")
+@RequestMapping("/api/v1/institute/order/dish")
 public class DishController {
 
     private final DishService dishService;

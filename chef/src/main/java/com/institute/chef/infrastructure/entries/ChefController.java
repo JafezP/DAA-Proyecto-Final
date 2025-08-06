@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/institute/chef/")
+@RequestMapping("/api/v1/institute/chef")
 public class ChefController {
 
     private final ChefService chefService;

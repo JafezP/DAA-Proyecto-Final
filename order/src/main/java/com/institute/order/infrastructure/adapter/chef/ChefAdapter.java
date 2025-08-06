@@ -14,8 +14,8 @@ public class ChefAdapter implements ChefRepository {
 
     @Override
     public Chef findById(String uid) {
-        String url = "http://localhost:8082/api/v1/institute/chef/" + uid;
-        ChefData profesorData = restTemplate.getForObject(url, ChefData.class);
-        return ChefMapper.MAPPER.toModel(profesorData);
+        String url = "http://localhost:8084/api/v1/institute/chef/" + uid;
+        ChefData chefData = restTemplate.getForObject(url, ChefData.class);
+        return ChefMapper.MAPPER.toModel(chefData);
     }
 }
