@@ -9,7 +9,7 @@ public interface DishMapper {
     
     DishMapper MAPPER = Mappers.getMapper(DishMapper.class);
 
-    Dish toModel(DishData entity);
+    Dish toDomain(DishData entity);
 
-    DishData toData(Dish model);
+    DishData toEntity(Dish domain);
 }

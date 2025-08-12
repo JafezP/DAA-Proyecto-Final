@@ -14,7 +14,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "curso")
+@Table(name = "dish")
 public class DishData {
 
     @Id
@@ -29,4 +29,7 @@ public class DishData {
 
     @Column(name = "price")
     private Double price;
+
+    @Column(name = "active")
+    private int active;
 }

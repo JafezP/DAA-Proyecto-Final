@@ -9,7 +9,7 @@ public interface ChefMapper {
 
     ChefMapper MAPPER = Mappers.getMapper(ChefMapper.class);
 
-    Chef toModel(ChefData entity);
+    Chef toDomain(ChefData entity);
 
     ChefData toEntity(Chef domain);
 }

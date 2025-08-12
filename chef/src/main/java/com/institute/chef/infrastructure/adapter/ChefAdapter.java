@@ -19,42 +19,41 @@ public class ChefAdapter implements ChefRepository {
         return chefDataRepository.findAll()
                 .stream()
                 .filter(chefData -> chefData.getActive() != 0)
-                .map(ChefMapper.MAPPER::toModel)
+                .map(ChefMapper.MAPPER::toDomain)
                 .toList();
     }
 
-   @Override
+    @Override
     public Chef findById(String uid) {
         return chefDataRepository.findById(uid)
                 .filter(chefData -> chefData.getActive() == 1)
-                .map(ChefMapper.MAPPER::toModel)
+                .map(ChefMapper.MAPPER::toDomain)
                 .orElseThrow(() -> new EntityNotFoundException("Chef not found or inactive: " + uid));
     }
 
     @Override
     public Chef save(Chef chef) {
         ChefData chefData = chefDataRepository.save(ChefMapper.MAPPER.toEntity(chef));
-        return ChefMapper.MAPPER.toModel(chefData);
+        return ChefMapper.MAPPER.toDomain(chefData);
     }
 
     @Override
     public Chef update(String uid, Chef chef) {
-        ChefData existing = chefDataRepository.findById(uid)
-                .orElseThrow(() -> new EntityNotFoundException("Chef not found: " + uid));
+        ChefData currentChefData = chefDataRepository.findById(uid)
+                .orElseThrow(() -> new EntityNotFoundException("Chef not found or inactive: " + uid));
 
-        ChefData update = ChefMapper.MAPPER.toEntity(chef);
-        update.setUid(existing.getUid());
-        return ChefMapper.MAPPER.toModel(chefDataRepository.save(update));
+        ChefData updatedChefData = ChefMapper.MAPPER.toEntity(chef);
+        updatedChefData.setUid(currentChefData.getUid());
+        return ChefMapper.MAPPER.toDomain(chefDataRepository.save(updatedChefData));
     }
 
     @Override
     public void deleteById(String uid) {
         chefDataRepository.findById(uid)
-                .filter(c -> c.getActive() == 1)
+                .filter(chefData -> chefData.getActive() == 1)
                 .ifPresent(chefData -> {
                     chefData.setActive(0);
                     chefDataRepository.save(chefData);
                 });
-
     }
 }

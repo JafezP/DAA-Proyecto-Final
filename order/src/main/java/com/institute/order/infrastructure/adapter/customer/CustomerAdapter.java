@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-@Component //Validar
+@Component
 @RequiredArgsConstructor
 public class CustomerAdapter implements CustomerRepository {
 

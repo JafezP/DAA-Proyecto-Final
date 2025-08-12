@@ -31,12 +31,13 @@ public class CustomerController {
     @PostMapping
     ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
         return ResponseEntity
-                .status(HttpStatus.ACCEPTED)
+                .status(HttpStatus.CREATED)
                 .body(customerService.save(customer));
     }
 
     @PutMapping("/{uid}")
-    ResponseEntity<Customer> updateCustomer(@PathVariable("uid") String uid, @RequestBody Customer customer) {
+    ResponseEntity<Customer> updateCustomer(@PathVariable("uid") String uid,
+                                            @RequestBody Customer customer) {
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)
                 .body(customerService.update(uid, customer));

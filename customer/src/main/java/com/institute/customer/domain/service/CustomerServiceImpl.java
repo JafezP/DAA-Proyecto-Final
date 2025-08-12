@@ -2,7 +2,6 @@ package com.institute.customer.domain.service;
 
 import com.institute.customer.domain.model.Customer;
 import com.institute.customer.domain.model.CustomerRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

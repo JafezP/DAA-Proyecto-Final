@@ -1,4 +1,4 @@
-package com.institute.customer.infrastructure.adapter.customer;
+package com.institute.customer.infrastructure.adapter;
 
 import com.institute.customer.domain.model.Customer;
 import com.institute.customer.domain.model.CustomerRepository;
@@ -19,7 +19,7 @@ public class CustomerAdapter implements CustomerRepository {
         return customerDataRepository.findAll()
                 .stream()
                 .filter(customerData -> customerData.getActive() != 0)
-                .map(CustomerMapper.MAPPER::toModel)
+                .map(CustomerMapper.MAPPER::toDomain)
                 .toList();
     }
 
@@ -27,30 +27,30 @@ public class CustomerAdapter implements CustomerRepository {
     public Customer findById(String uid) {
         return customerDataRepository.findById(uid)
                 .filter(customerData -> customerData.getActive() == 1)
-                .map(CustomerMapper.MAPPER::toModel)
+                .map(CustomerMapper.MAPPER::toDomain)
                 .orElseThrow(() -> new EntityNotFoundException("Customer not found or inactive: " + uid));
     }
 
     @Override
     public Customer save(Customer customer) {
         CustomerData customerData = customerDataRepository.save(CustomerMapper.MAPPER.toEntity(customer));
-        return CustomerMapper.MAPPER.toModel(customerData);
+        return CustomerMapper.MAPPER.toDomain(customerData);
     }
 
     @Override
     public Customer update(String uid, Customer customer) {
-        CustomerData existing = customerDataRepository.findById(uid).
-                orElseThrow(() -> new EntityNotFoundException("Customer not found: " + uid));
+        CustomerData currentCustomerData = customerDataRepository.findById(uid).
+                orElseThrow(() -> new EntityNotFoundException("Customer not found or inactive: " + uid));
 
-        CustomerData update = CustomerMapper.MAPPER.toEntity(customer);
-        update.setUid(existing.getUid());
-        return CustomerMapper.MAPPER.toModel(customerDataRepository.save(update));
+        CustomerData updatedCustomerData = CustomerMapper.MAPPER.toEntity(customer);
+        updatedCustomerData.setUid(currentCustomerData.getUid());
+        return CustomerMapper.MAPPER.toDomain(customerDataRepository.save(updatedCustomerData));
     }
 
     @Override
     public void deleteById(String uid) {
         customerDataRepository.findById(uid)
-                .filter(c -> c.getActive() == 1)
+                .filter(customerData -> customerData.getActive() == 1)
                 .ifPresent(customerData -> {
                     customerData.setActive(0);
                     customerDataRepository.save(customerData);

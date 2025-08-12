@@ -19,12 +19,22 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public Dish findById(String id) {
-        return dishRepository.findById(id);
+    public Dish findById(String uid) {
+        return dishRepository.findById(uid);
     }
 
     @Override
     public Dish save(Dish dish) {
         return dishRepository.save(dish);
+    }
+
+    @Override
+    public Dish update(String uid, Dish dish) {
+        return dishRepository.update(uid, dish);
+    }
+
+    @Override
+    public void deleteById(String uid) {
+        dishRepository.deleteById(uid);
     }
 }

@@ -4,6 +4,7 @@ public record Dish(
         String uid,
         String name,
         String description,
-        Double price
+        Double price,
+        int active
 ) {
 }

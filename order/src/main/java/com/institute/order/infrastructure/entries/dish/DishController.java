@@ -17,19 +17,37 @@ public class DishController {
     private final DishService dishService;
 
     @GetMapping
-    public ResponseEntity<List<Dish>> findAll() {
+    ResponseEntity<List<Dish>> getAllDish() {
         return ResponseEntity.ok(dishService.findAll());
     }
 
     @GetMapping("/{uid}")
-    public ResponseEntity<Dish> findByUid(@PathVariable("uid") String uid) {
-        return ResponseEntity.status(HttpStatus.OK)
+    ResponseEntity<Dish> getDishByUid(@PathVariable("uid") String uid) {
+        return ResponseEntity
+                .status(HttpStatus.ACCEPTED)
                 .body(dishService.findById(uid));
     }
 
     @PostMapping
-    public ResponseEntity<Dish> create(@RequestBody Dish dish) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED)
+    ResponseEntity<Dish> createDish(@RequestBody Dish dish) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
                 .body(dishService.save(dish));
+    }
+
+    @PutMapping("/{uid}")
+    ResponseEntity<Dish> updateDish(@PathVariable("uid") String uid,
+                                    @RequestBody Dish dish) {
+        return ResponseEntity
+                .status(HttpStatus.ACCEPTED)
+                .body(dishService.update(uid, dish));
+    }
+
+    @DeleteMapping("/{uid}")
+    ResponseEntity<Void> deleteDishByUid(@PathVariable("uid") String uid) {
+        dishService.deleteById(uid);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
     }
 }

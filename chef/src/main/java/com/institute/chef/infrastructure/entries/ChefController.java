@@ -31,12 +31,13 @@ public class ChefController {
     @PostMapping
     ResponseEntity<Chef> createChef(@RequestBody Chef chef) {
         return ResponseEntity
-                .status(HttpStatus.ACCEPTED)
+                .status(HttpStatus.CREATED)
                 .body(chefService.save(chef));
     }
 
     @PutMapping("/{uid}")
-    ResponseEntity<Chef> updateChef(@PathVariable("uid") String uid, @RequestBody Chef chef) {
+    ResponseEntity<Chef> updateChef(@PathVariable("uid") String uid,
+                                    @RequestBody Chef chef) {
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)
                 .body(chefService.update(uid, chef));
