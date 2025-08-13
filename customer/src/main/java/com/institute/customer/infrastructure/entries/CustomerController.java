@@ -11,7 +11,8 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/institute/customer")
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api/v1/institute/customer/")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -21,7 +22,7 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.findAll());
     }
 
-    @GetMapping("/{uid}")
+    @GetMapping("{uid}")
     ResponseEntity<Customer> getCustomerByUid(@PathVariable("uid") String uid) {
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)
@@ -35,7 +36,7 @@ public class CustomerController {
                 .body(customerService.save(customer));
     }
 
-    @PutMapping("/{uid}")
+    @PutMapping("{uid}")
     ResponseEntity<Customer> updateCustomer(@PathVariable("uid") String uid,
                                             @RequestBody Customer customer) {
         return ResponseEntity
@@ -43,7 +44,7 @@ public class CustomerController {
                 .body(customerService.update(uid, customer));
     }
 
-    @DeleteMapping("/{uid}")
+    @DeleteMapping("{uid}")
     ResponseEntity<Void> deleteCustomerByUid(@PathVariable("uid") String uid) {
         customerService.deleteById(uid);
         return ResponseEntity
