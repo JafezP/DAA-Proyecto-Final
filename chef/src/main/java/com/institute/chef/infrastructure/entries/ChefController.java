@@ -11,7 +11,8 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/institute/chef")
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api/v1/institute/chef/")
 public class ChefController {
 
     private final ChefService chefService;
@@ -21,7 +22,7 @@ public class ChefController {
         return ResponseEntity.ok(chefService.findAll());
     }
 
-    @GetMapping("/{uid}")
+    @GetMapping("{uid}")
     ResponseEntity<Chef> getChefByUid(@PathVariable("uid") String uid) {
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)
@@ -35,7 +36,7 @@ public class ChefController {
                 .body(chefService.save(chef));
     }
 
-    @PutMapping("/{uid}")
+    @PutMapping("{uid}")
     ResponseEntity<Chef> updateChef(@PathVariable("uid") String uid,
                                     @RequestBody Chef chef) {
         return ResponseEntity
@@ -43,7 +44,7 @@ public class ChefController {
                 .body(chefService.update(uid, chef));
     }
 
-    @DeleteMapping("/{uid}")
+    @DeleteMapping("{uid}")
     ResponseEntity<Void> deleteChefByUid(@PathVariable("uid") String uid) {
         chefService.deleteById(uid);
         return ResponseEntity

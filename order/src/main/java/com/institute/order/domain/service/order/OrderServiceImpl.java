@@ -31,7 +31,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public Order save(Order order) {
-        Dish dish = dishRepository.findById(order.uid()); //Pendiente uidDish()
+        Dish dish = dishRepository.findById(order.uid());
         Chef chef = chefRepository.findById(order.uidChef());
         if(dish != null && chef != null){
             return orderRepository.save(order);

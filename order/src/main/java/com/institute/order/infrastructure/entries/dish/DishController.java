@@ -11,7 +11,8 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/institute/order/dish")
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api/v1/institute/order/dish/")
 public class DishController {
 
     private final DishService dishService;
@@ -21,7 +22,7 @@ public class DishController {
         return ResponseEntity.ok(dishService.findAll());
     }
 
-    @GetMapping("/{uid}")
+    @GetMapping("{uid}")
     ResponseEntity<Dish> getDishByUid(@PathVariable("uid") String uid) {
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)
@@ -35,7 +36,7 @@ public class DishController {
                 .body(dishService.save(dish));
     }
 
-    @PutMapping("/{uid}")
+    @PutMapping("{uid}")
     ResponseEntity<Dish> updateDish(@PathVariable("uid") String uid,
                                     @RequestBody Dish dish) {
         return ResponseEntity
@@ -43,7 +44,7 @@ public class DishController {
                 .body(dishService.update(uid, dish));
     }
 
-    @DeleteMapping("/{uid}")
+    @DeleteMapping("{uid}")
     ResponseEntity<Void> deleteDishByUid(@PathVariable("uid") String uid) {
         dishService.deleteById(uid);
         return ResponseEntity

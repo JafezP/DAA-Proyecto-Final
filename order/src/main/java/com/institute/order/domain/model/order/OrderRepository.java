@@ -10,5 +10,5 @@ public interface OrderRepository {
 
     Order findByChefAndDish(String uidChef, String uidDish);
 
-    Order save(Order apertura);
+    Order save(Order order);
 }

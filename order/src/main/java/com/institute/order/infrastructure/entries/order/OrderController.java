@@ -11,7 +11,8 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/institute/order")
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api/v1/institute/order/")
 public class OrderController {
 
     private final OrderService orderService;
@@ -21,7 +22,7 @@ public class OrderController {
         return ResponseEntity.ok(orderService.findAll());
     }
 
-    @GetMapping("/{uid}")
+    @GetMapping("{uid}")
     public ResponseEntity<Order> findById(String uid) {
         return ResponseEntity
                 .status(HttpStatus.OK)

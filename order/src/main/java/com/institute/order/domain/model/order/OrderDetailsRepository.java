@@ -8,5 +8,5 @@ public interface OrderDetailsRepository {
     
     List<OrderDetails> findByCustomerId(String uidCustomer);
     
-    OrderDetails save(OrderDetails aperturaDetalle);
+    OrderDetails save(OrderDetails orderDetails);
 }
